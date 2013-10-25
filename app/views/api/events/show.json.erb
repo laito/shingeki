@@ -6,6 +6,7 @@
 		"user_id": "<%=@event.user_id%>",
 		"user_name": "<%=User.find(@event.user_id).name%>",
 		"acceptor_id": "<%=@event.acceptor_id%>",
+		"acceptor_name": "<%=User.find(@event.acceptor_id).name%>",
 		"status": "<%=@event.status%>",
 		"tip": "<%=@event.tip%>",
 		"created_at": "<%=@event.created_at%>",
