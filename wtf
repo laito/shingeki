@@ -1,0 +1,21 @@
+rake aborted!
+uninitialized constant CreateApiKeys
+/usr/local/rvm/gems/ruby-2.0.0-p247@global/gems/activesupport-4.0.0/lib/active_support/inflector/methods.rb:226:in `const_get'
+/usr/local/rvm/gems/ruby-2.0.0-p247@global/gems/activesupport-4.0.0/lib/active_support/inflector/methods.rb:226:in `block in constantize'
+/usr/local/rvm/gems/ruby-2.0.0-p247@global/gems/activesupport-4.0.0/lib/active_support/inflector/methods.rb:224:in `each'
+/usr/local/rvm/gems/ruby-2.0.0-p247@global/gems/activesupport-4.0.0/lib/active_support/inflector/methods.rb:224:in `inject'
+/usr/local/rvm/gems/ruby-2.0.0-p247@global/gems/activesupport-4.0.0/lib/active_support/inflector/methods.rb:224:in `constantize'
+/usr/local/rvm/gems/ruby-2.0.0-p247@global/gems/activesupport-4.0.0/lib/active_support/core_ext/string/inflections.rb:66:in `constantize'
+/usr/local/rvm/gems/ruby-2.0.0-p247@global/gems/activerecord-4.0.0/lib/active_record/migration.rb:719:in `load_migration'
+/usr/local/rvm/gems/ruby-2.0.0-p247@global/gems/activerecord-4.0.0/lib/active_record/migration.rb:714:in `migration'
+/usr/local/rvm/gems/ruby-2.0.0-p247@global/gems/activerecord-4.0.0/lib/active_record/migration.rb:708:in `disable_ddl_transaction'
+/usr/local/rvm/gems/ruby-2.0.0-p247@global/gems/activerecord-4.0.0/lib/active_record/migration.rb:1012:in `use_transaction?'
+/usr/local/rvm/gems/ruby-2.0.0-p247@global/gems/activerecord-4.0.0/lib/active_record/migration.rb:922:in `rescue in block in migrate'
+/usr/local/rvm/gems/ruby-2.0.0-p247@global/gems/activerecord-4.0.0/lib/active_record/migration.rb:919:in `block in migrate'
+/usr/local/rvm/gems/ruby-2.0.0-p247@global/gems/activerecord-4.0.0/lib/active_record/migration.rb:916:in `each'
+/usr/local/rvm/gems/ruby-2.0.0-p247@global/gems/activerecord-4.0.0/lib/active_record/migration.rb:916:in `migrate'
+/usr/local/rvm/gems/ruby-2.0.0-p247@global/gems/activerecord-4.0.0/lib/active_record/migration.rb:764:in `up'
+/usr/local/rvm/gems/ruby-2.0.0-p247@global/gems/activerecord-4.0.0/lib/active_record/migration.rb:742:in `migrate'
+/usr/local/rvm/gems/ruby-2.0.0-p247@global/gems/activerecord-4.0.0/lib/active_record/railties/databases.rake:42:in `block (2 levels) in <top (required)>'
+Tasks: TOP => db:migrate
+(See full trace by running task with --trace)

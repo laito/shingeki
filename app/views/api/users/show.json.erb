@@ -1,0 +1,22 @@
+    {
+      "first_name": "<%= @user.first_name %>",
+      "last_name": "<%= @user.last_name %>",
+      "avatar": "<%= @user.avatar(:M) %>",
+      "email": "<%=@user.email%>",
+      <% if (not @user.usertype.eql? 'I') and (not @user.roll_no.blank?) %>
+      "roll_no": "<%=@user.roll_no%>",  
+      <% end %>
+      "level": "<%=@user.level%>",
+      "points": "<%=@user.scores_total%>",
+      "courses": "[<%@user.course.each do |course|%><%=course.id%><% if not course.eql? @user.course.last%>,<% end %><%end%>]",
+      "coursenames": "[<%@user.course.each do |course|%><%=course.name%><% if not course.eql? @user.course.last%>,<% end %><%end%>]",
+      "upcomingdeadlines": [<% @upcomingdeadlines.each do |d|%>
+			      {
+				"name": "<%=d.title%>",
+				"coursename": "<%=Course.find(d.course_id).name%>",
+				"endTime": "<%=d.endDateTime.to_i%>"
+			      } <% if not d.eql? @upcomingdeadlines.last %>,<% end %>
+	  		    
+			   <% end %>]
+}
+

@@ -1,0 +1,34 @@
+
+{
+	"name": "<%=@course.name%>",
+	"code": "<%=@course.code%>",
+	"credits": "<%=@course.credits%>",
+	"semester": "<%=@course.semester.id%>",
+	<%if not @course.overview.blank?%>
+	"overview": "<%=@course.overview%>",
+	<%end%>
+	<%if not @course.description.blank?%>
+	"description": "<%=@course.description%>",
+	<%end%>
+	<%if not @course.prerequisites.blank?%>
+	"prerequisites": "<%=@course.prerequisites%>",
+	<%end%>
+	<%if not @course.textbooks.blank?%>
+	"textbooks": "<%=@course.textbooks%>",
+	<%end%>
+	<%if not @course.office_hours.blank?%>
+	"officehours": "<%=@course.office_hours%>",
+	<%end%>
+	<%if not @course.evaluation.blank?%>
+	"evaluation": "<%=@course.evaluation%>",
+	<%end%>
+	<%if not @course.timings.blank?%>
+	"timings": "<%=@course.timings%>",
+	<%end%>
+	"instructors": "<%=@instructorids%>",
+	"students": "<%=@studentids%>",
+	"discussions": "<%=@discussionids%>",
+	"discussionids": <%=raw @discussionids%>,
+	"discussionnames": <%=raw @discussionnames%>,
+	"discussionusers": <%=raw @discussionusers%>
+}

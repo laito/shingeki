@@ -1,0 +1,17 @@
+[
+	<% @eventlist.each do |e| %>
+	{
+		"id": "<%=e.id%>",
+		"title": "<%=e.title%>",
+		"deadline": "<%=e.deadline%>",
+		"type": "<%=e.eventtype%>",
+		"user_id": "<%=e.user_id%>",
+		"user_name": "<%=User.find(e.user_id).name%>",
+		"acceptor_id": "<%=e.acceptor_id%>",
+		"status": "<%=e.status%>",
+		"tip": "<%=e.tip%>",
+		"created_at": "<%=e.created_at%>",
+		"updated_at": "<%=e.updated_at%>"
+	} <% if not e.eql? @eventlist.last %>,<% end %>
+	<% end %>
+]
