@@ -19,9 +19,6 @@ require 'net/http'
 
 		if resp.code == "200"
 		  # Find a user
-		    puts "ZZZZZZ"
-		    puts data
-		    puts "AHAHAHAH"
 			@user = User.where(:email => data["email"].downcase).first
 
 		   		if @user.nil?

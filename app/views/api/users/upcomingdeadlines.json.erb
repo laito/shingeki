@@ -1,9 +1,0 @@
-"upcomingdeadlines": [<% @upcomingdeadlines.each do |d|%>
-                              {
-                                "name": "<%=d.title%>",
-                                "coursename": "<%=Course.find(d.course_id).name%>",
-                                "endTime": "<%=d.endDateTime.to_i%>"
-                              } <% if not d.eql? @upcomingdeadlines.last %>,<% end %>
-
-                           <% end %>]
-
