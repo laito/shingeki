@@ -10,6 +10,8 @@ require 'net/http'
 		req = Net::HTTP::Get.new(URI.encode(url.to_s))
 		http = Net::HTTP.new(url.host, url.port)
 		http.use_ssl = true
+		http.verify_mode = nil
+		#https.ca_file = "lib/assets/cacert.pm"
 		resp = nil
 		data = nil
 		http.start do |h|
