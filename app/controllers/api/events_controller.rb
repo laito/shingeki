@@ -10,7 +10,7 @@ require 'gcm'
    	end
 
 	def create
-        if not params[:status].blank?
+        if not params[:show].blank?
             index()
             return
         end
