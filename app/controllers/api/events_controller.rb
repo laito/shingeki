@@ -39,6 +39,10 @@ skip_before_filter :verify_authenticity_token
 		      		format.json { render :file => "/api/events/error.json.erb", :content_type => 'application/json' }
     			end
     		end
+    	else
+    		respond_to do |format|
+		      	format.json { render :file => "/api/events/error.json.erb", :content_type => 'application/json' }
+    		end
     	end
     end
 
@@ -62,6 +66,10 @@ skip_before_filter :verify_authenticity_token
 		      		format.json { render :file => "/api/events/error.json.erb", :content_type => 'application/json' }
     			end
     		end
+    	else
+    		respond_to do |format|
+		      	format.json { render :file => "/api/events/error.json.erb", :content_type => 'application/json' }
+    		end
     	end
     end
 
@@ -84,10 +92,62 @@ skip_before_filter :verify_authenticity_token
 		      		format.json { render :file => "/api/events/error.json.erb", :content_type => 'application/json' }
     			end
     		end
+    	else
+    		respond_to do |format|
+		      	format.json { render :file => "/api/events/error.json.erb", :content_type => 'application/json' }
+    		end
     	end
     end
 
+    def approved
+    	@user = current_user
+    	if not @user.nil?
+    		eventid = params[:id]
+    		@event = Event.find(eventid)
+    		if not @event.nil?
+    			if @event.user_id.eql? @user.id
+    				@event.status = 2
+    				@event.save
+    				respond_to do |format|
+		      			format.json { render :file => "/api/events/error.json.erb", :content_type => 'application/json' }
+    				end
+    			else
+    				respond_to do |format|
+		      			format.json { render :file => "/api/events/error.json.erb", :content_type => 'application/json' }
+    				end
+    			end
+    		else
+    			respond_to do |format|
+		      		format.json { render :file => "/api/events/error.json.erb", :content_type => 'application/json' }
+    			end
+    		end
+    	else
+    		respond_to do |format|
+		      	format.json { render :file => "/api/events/error.json.erb", :content_type => 'application/json' }
+    		end
+    	end
+    end
+
+
 	def show
+		@user = current_user
+		if not @user.nil?
+			eventid = params[:id]
+			@event = Event.find(eventid)
+			if not @event.nil?
+				respond_to do |format|
+		      		format.json { render :file => "/api/events/show.json.erb", :content_type => 'application/json' }
+    			end
+    		else
+    			respond_to do |format|
+		      		format.json { render :file => "/api/events/error.json.erb", :content_type => 'application/json' }
+    			end
+			end
+		else
+			respond_to do |format|
+		      	format.json { render :file => "/api/events/error.json.erb", :content_type => 'application/json' }
+    		end
+		end
 	end
 
 	def index
