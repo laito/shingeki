@@ -2,6 +2,8 @@ class Api::EventsController < ApplicationController
 before_filter :restrict_access
 skip_before_filter :verify_authenticity_token
 
+require 'gcm'
+
 
  	def event_params
    		 params.require(:event).permit(:title, :description, :deadline, :tip, :eventtype)
@@ -18,7 +20,7 @@ skip_before_filter :verify_authenticity_token
 		end
 	end
 
-
+    #Accept someone's event
     def accept
     	@user = current_user
     	if not @user.nil?
@@ -29,6 +31,15 @@ skip_before_filter :verify_authenticity_token
     				@event.acceptor_id = @user.id
     				@event.status = 0
     				@event.save
+                    registration_ids = []
+                    reg_ids = @event.user.gcmregistration
+                    reg_ids = reg_ids.map{|x| x.registration_id}
+                    registration_ids = registration_ids.concat(reg_ids)
+                    text = @user.name+" has accepted your request to "+@event.title
+                    notify text @event.id registration_ids
+                    respond_to do |format|
+                        format.json { render :file => "/api/events/created.json.erb", :content_type => 'application/json' }
+                    end
     			else
     				respond_to do |format|
 		      			format.json { render :file => "/api/events/error.json.erb", :content_type => 'application/json' }
@@ -56,6 +67,15 @@ skip_before_filter :verify_authenticity_token
     				@event.status = 1
     				@event.acceptor_id = nil
     				@event.save
+                    registration_ids = []
+                    reg_ids = @event.user.gcmregistration
+                    reg_ids = reg_ids.map{|x| x.registration_id}
+                    registration_ids = registration_ids.concat(reg_ids)
+                    text = @user.name+" has opted out of your request to "+@event.title
+                    notify text @event.id registration_ids
+                    respond_to do |format|
+                        format.json { render :file => "/api/events/created.json.erb", :content_type => 'application/json' }
+                    end
     			else
     				respond_to do |format|
 		      			format.json { render :file => "/api/events/error.json.erb", :content_type => 'application/json' }
@@ -82,6 +102,9 @@ skip_before_filter :verify_authenticity_token
     			if @event.user_id.eql? @user.id
     				@event.status = 0
     				@event.save
+                    respond_to do |format|
+                        format.json { render :file => "/api/events/created.json.erb", :content_type => 'application/json' }
+                    end
     			else
     				respond_to do |format|
 		      			format.json { render :file => "/api/events/error.json.erb", :content_type => 'application/json' }
@@ -108,6 +131,15 @@ skip_before_filter :verify_authenticity_token
     			if @event.user_id.eql? @user.id
     				@event.status = 2
     				@event.save
+                    registration_ids = []
+                    reg_ids = @user.gcmregistration
+                    reg_ids = reg_ids.map{|x| x.registration_id}
+                    registration_ids = registration_ids.concat(reg_ids)
+                    text = @event.user.name+" thanked you!"
+                    notify text @event.id registration_ids
+                    respond_to do |format|
+                        format.json { render :file => "/api/events/created.json.erb", :content_type => 'application/json' }
+                    end
     				respond_to do |format|
 		      			format.json { render :file => "/api/events/error.json.erb", :content_type => 'application/json' }
     				end
