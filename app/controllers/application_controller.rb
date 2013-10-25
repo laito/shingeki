@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
 
-  def notify text id registration_ids
+  def notify(text, id, registration_ids)
     gcm = GCM.new("AIzaSyAjjegzxOGVfz9YKl7_hTcYFnm4CP-i0tk")
     options = {data: {text: text, type: "event", id: id}, collapse_key: "newevent"}
     response = gcm.send_notification(registration_ids, options)
