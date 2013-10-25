@@ -19,12 +19,17 @@ Shingeki::Application.routes.draw do
     resources :signins
     resources :gcms
     resources :events
+    post '/events', to: 'events#index'
     get '/myevents', to: 'events#myevents'
     post '/myevents', to: 'events#myevents'
     post '/gcm', to: 'gcms#register'
+    get '/gcm', to: 'gcms#register'
     post '/signin', to: 'signins#create'
+    get '/signin', to: 'signins#create'
     post '/currentuser', to: 'users#currentuser'
+    get '/currentuser', to: 'users#currentuser'
     post '/users/:id', to: 'users#show'
+    get '/users/:id', to: 'users#show'
     get '/gcm', to: 'gcms#register'
     get '/signin', to: 'signins#create'
     get '/currentuser', to: 'users#currentuser'
