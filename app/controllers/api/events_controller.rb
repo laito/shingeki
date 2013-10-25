@@ -10,6 +10,10 @@ require 'gcm'
    	end
 
 	def create
+        if not params[:status].blank?
+            index()
+            return
+        end
 		respond_to do |format|
 		    created = create_event(event_params)
 		    if created
