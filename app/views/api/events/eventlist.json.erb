@@ -1,17 +1,23 @@
 [
+<% @eventlist =  @eventlist.reverse %>
 	<% @eventlist.each do |e| %>
 	{
 		"id": "<%=e.id%>",
 		"title": "<%=e.title%>",
 		"deadline": "<%=e.deadline%>",
+		"description": "<%=e.description%>",
 		"type": "<%=e.eventtype%>",
 		"user_id": "<%=e.user_id%>",
 		"user_name": "<%=User.find(e.user_id).name%>",
 		"acceptor_id": "<%=e.acceptor_id%>",
-		"acceptor_name": "<%=User.find(e.acceptor_id).name%>",
+		<% if not e.acceptor_id.nil? %>
+		<% acceptorname = User.find(e.acceptor_id).name %>
+		<% end %>
+		<% acceptorname = "" if e.acceptor_id.nil? %> 
+		"acceptor_name": "<%=acceptorname%>",
 		"status": "<%=e.status%>",
 		"tip": "<%=e.tip%>",
-		"created_at": "<%=e.created_at%>",
+		"created_at": "<%=Time.at(e.created_at.to_i ).strftime "%H:%M %m/%d"%>",
 		"updated_at": "<%=e.updated_at%>"
 	} <% if not e.eql? @eventlist.last %>,<% end %>
 	<% end %>

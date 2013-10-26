@@ -40,7 +40,7 @@ require 'gcm'
                     reg_ids = reg_ids.map{|x| x.registration_id}
                     registration_ids = registration_ids.concat(reg_ids)
                     text = @user.name+" has accepted your request to "+@event.title
-                    notify text @event.id registration_ids
+                    notify(text,@event.id,registration_ids)
                     respond_to do |format|
                         format.json { render :file => "/api/events/created.json.erb", :content_type => 'application/json' }
                     end
@@ -104,7 +104,7 @@ require 'gcm'
     		@event = Event.find(eventid)
     		if not @event.nil?
     			if @event.user_id.eql? @user.id
-    				@event.status = 0
+    				@event.status = -1
     				@event.save
                     respond_to do |format|
                         format.json { render :file => "/api/events/created.json.erb", :content_type => 'application/json' }

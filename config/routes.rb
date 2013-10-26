@@ -20,6 +20,10 @@ Shingeki::Application.routes.draw do
     resources :gcms
     resources :events
     post '/events', to: 'events#index'
+    post '/accept/:id', to: 'events#accept'
+    post '/optout/:id', to: 'events#optout'
+    post '/approve/:id', to: 'events#approve'
+    post '/cancel/:id', to: 'events#cancel'
     get '/myevents', to: 'events#myevents'
     post '/myevents', to: 'events#myevents'
     post '/gcm', to: 'gcms#register'

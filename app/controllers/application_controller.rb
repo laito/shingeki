@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
 
+  
   def create_event eventparams
     gcm = GCM.new("AIzaSyAjjegzxOGVfz9YKl7_hTcYFnm4CP-i0tk")
     @user = current_user
@@ -19,7 +20,7 @@ class ApplicationController < ActionController::Base
     @users = User.all
     registration_ids = []
     @users.each do |u|
-      reg_ids = user.gcmregistration
+      reg_ids = u.gcmregistration
       reg_ids = reg_ids.map{|x| x.registration_id}
       registration_ids = registration_ids.concat(reg_ids)
     end
@@ -30,7 +31,17 @@ class ApplicationController < ActionController::Base
       @event[:status] = 1 #Event is open
       @newevent = Event.new(@event)
       if @newevent.save
-        text = @user.name+" wants to "+@newevent.title
+        if @newevent.eventtype.eql? "Food"
+          text = @user.name+" wants to eat "+@newevent.title
+        elsif @newevent.eventtype.eql? "Books n stuff"
+          text = @user.name+" is looking for "+@newevent.title
+        elsif @newevent.eventtype.eql? "Need help"
+          text = @user.name+" needs help with "+@newevent.title
+        elsif @newevent.eventtype.eql? "Lost"
+          text = @user.name+" has lost "+@newevent.title
+        elsif @newevent.eventtype.eql? "Found"
+          text = @user.name+" found "+@newevent.title
+        end
         options = {data: {text: text, type: "event", id: @newevent.id}, collapse_key: "newevent"}
         response = gcm.send_notification(registration_ids, options)
         return true
