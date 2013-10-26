@@ -9,6 +9,20 @@ require 'gcm'
    		 params.require(:event).permit(:title, :description, :deadline, :tip, :eventtype)
    	end
 
+    def comment
+        @user = current_user
+        if not @user.nil?
+            eventid = params[:id]
+            comment => params[:comment]
+            @event = Event.find(eventid)
+            @event.comments.create(:comment => comment)
+            respond_to do |format|
+                format.json { render :file => "/api/events/created.json.erb", :content_type => 'application/json' }
+            end
+        end
+    end
+
+
 	def create
         if not params[:show].blank?
             index()

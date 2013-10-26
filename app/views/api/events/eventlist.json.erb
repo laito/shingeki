@@ -8,6 +8,7 @@
 		"description": "<%=e.description%>",
 		"type": "<%=e.eventtype%>",
 		"user_id": "<%=e.user_id%>",
+		"comments": [<% e.comments.each do |c|%>{<%=c.comment%>}<% if not c.eql? e.comments.last%>,<%end%><% end %>]
 		"user_name": "<%=User.find(e.user_id).name%>",
 		"acceptor_id": "<%=e.acceptor_id%>",
 		<% if not e.acceptor_id.nil? %>
